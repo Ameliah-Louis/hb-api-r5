@@ -22,3 +22,19 @@ function getConnection(): PDO
     exit;
   }
 }
+
+/**
+ * Deletes a product
+ *
+ * @param PDO $pdo
+ * @param integer $id
+ * @return integer Number of deleted rows
+ */
+function deleteProduct(PDO $pdo, int $id): int
+{
+  $stmtDelete = $pdo->prepare('DELETE FROM product WHERE id=:id');
+  $stmtDelete->execute(['id' => $id]);
+
+  $affectedRows = $stmtDelete->rowCount();
+  return $affectedRows;
+}
